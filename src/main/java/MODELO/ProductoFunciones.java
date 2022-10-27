@@ -36,6 +36,7 @@ public class ProductoFunciones {
         }
         return datos;
     }
+    
     public int agregar(Producto pro) {  
         int r=0;
         String sql="insert into producto(Codigo, Nombre, Marca, Modelo, Precio, Stock)values(?, ?, ?, ?, ?, ?)";

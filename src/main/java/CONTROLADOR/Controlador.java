@@ -1,5 +1,6 @@
 package CONTROLADOR;
 
+import MODELO.Page_pdf;
 import MODELO.Producto;
 import MODELO.ProductoFunciones;
 import VISTA.VistaPrincipal;
@@ -17,6 +18,7 @@ public class Controlador implements ActionListener {
     ProductoFunciones pf = new ProductoFunciones();
     Producto p = new Producto();
     VistaPrincipal vista = new VistaPrincipal();
+    Page_pdf pdf = new Page_pdf();
     DefaultTableModel modelo = new DefaultTableModel();
     
     public Controlador(VistaPrincipal v) {
@@ -27,6 +29,9 @@ public class Controlador implements ActionListener {
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnActualizar.addActionListener(this);
         this.vista.btnNuevo.addActionListener(this);
+        this.vista.btnGenerarPdf.addActionListener(this);
+        this.vista.btnVisualizarPdf.addActionListener(this);
+        
     }
     
     @Override
@@ -44,7 +49,7 @@ public class Controlador implements ActionListener {
         if (e.getSource() == vista.btnEditar) {
             int fila = vista.TablaRegistros.getSelectedRow();
             if (fila == -1) {
-                JOptionPane.showMessageDialog(vista, "Debee Seleccionar Una fila..!!");
+                JOptionPane.showMessageDialog(vista, "Seleccione una fila para poder Editar");
             } else {
                 int id = Integer.parseInt((String) vista.TablaRegistros.getValueAt(fila, 0).toString());
                 String Codigo = (String) vista.TablaRegistros.getValueAt(fila, 1);
@@ -76,6 +81,16 @@ public class Controlador implements ActionListener {
         if (e.getSource() == vista.btnNuevo) {
             Limpiar();
         }
+        if (e.getSource() == vista.btnGenerarPdf) {
+            limpiarTabla();
+            listar(vista.TablaRegistros);
+            pdf.GenerarPdf();
+            Limpiar();
+        }
+        if (e.getSource() == vista.btnVisualizarPdf) {
+            pdf.VisualizarPdf();
+            Limpiar();
+        }
 
     }
     
@@ -92,7 +107,7 @@ public class Controlador implements ActionListener {
     public void delete() {
         int fila = vista.TablaRegistros.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(vista, "Debe Seleccionar una Fila...!!!");
+            JOptionPane.showMessageDialog(vista, "Selecione una fila para Eliminar");
         } else {
             int id = Integer.parseInt((String) vista.TablaRegistros.getValueAt(fila, 0).toString());
             pf.Delete(id);
@@ -103,6 +118,9 @@ public class Controlador implements ActionListener {
     }
 
     public void Agregar() {
+        if (vista.txtCodigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(vista, "Campos vacios, ingresar datos!!");
+        } else {
         String Codigo = vista.txtCodigo.getText();
         String Nombre = vista.txtNombre.getText();
         String Marca = vista.txtMarca.getText();
@@ -121,6 +139,7 @@ public class Controlador implements ActionListener {
         } else {
         }
         limpiarTabla();
+    }
     }
 
     public void Actualizar() {
