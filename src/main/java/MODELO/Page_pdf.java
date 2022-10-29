@@ -33,7 +33,7 @@ public class Page_pdf{
             
             Image image = null;
             try {
-                image = Image.getInstance("G:\\Mi unidad\\NetBeansProjects\\PROYECTO_PROGRAII_MAVEN\\src\\main\\java\\IMAGENES\\ComercialLogo.png");//Image.getInstance("ComercialImage.jpg");
+                image = Image.getInstance("G:\\Mi unidad\\NetBeansProjects\\PROYECTO_PROGRAII_MAVEN\\src\\main\\java\\IMAGENES\\ComercialLogo.png");
                 image.scaleAbsolute(150, 100);
                 image.setAbsolutePosition(410, 730);                
             } catch (Exception e) {
@@ -95,7 +95,7 @@ public class Page_pdf{
             documento.add(tabla);
             
             documento.close();
-           JOptionPane.showMessageDialog(null, "DocumentoMGenerado Exitosamente!");
+           JOptionPane.showMessageDialog(null, "Documento Generado Exitosamente!");
         } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,"Error al generar pdf " +e);
             }

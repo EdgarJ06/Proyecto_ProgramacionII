@@ -31,6 +31,7 @@ public class Controlador implements ActionListener {
         this.vista.btnNuevo.addActionListener(this);
         this.vista.btnGenerarPdf.addActionListener(this);
         this.vista.btnVisualizarPdf.addActionListener(this);
+        this.vista.btnSalir.addActionListener(this);
         
     }
     
@@ -74,7 +75,7 @@ public class Controlador implements ActionListener {
 
         }
         if (e.getSource() == vista.btnEliminar) {
-            delete();
+            Eliminar();
             listar(vista.TablaRegistros);
             Limpiar();
         }
@@ -91,6 +92,9 @@ public class Controlador implements ActionListener {
             pdf.VisualizarPdf();
             Limpiar();
         }
+        if (e.getSource() == vista.btnSalir) {
+            System.exit(0);
+        }
 
     }
     
@@ -104,15 +108,14 @@ public class Controlador implements ActionListener {
         vista.txtStock.setText(null);
     }
 
-    public void delete() {
+    public void Eliminar() {
         int fila = vista.TablaRegistros.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(vista, "Selecione una fila para Eliminar");
         } else {
             int id = Integer.parseInt((String) vista.TablaRegistros.getValueAt(fila, 0).toString());
-            pf.Delete(id);
-            System.out.println("El Reusltaod es" + id);
-            JOptionPane.showMessageDialog(vista, "Usuario Eliminado...!!!");
+            pf.Eliminar(id);
+            JOptionPane.showMessageDialog(vista, "Registro Eliminado...!!!");
         }
         limpiarTabla();
     }
@@ -164,14 +167,13 @@ public class Controlador implements ActionListener {
             if (r == 1) {
                 JOptionPane.showMessageDialog(vista, "Prodiucto Actualizado con Exito.");
             } else {
-                //JOptionPane.showMessageDialog(vista, "Error al actualizar Datos: ");
             }
         }
         limpiarTabla();
     }
 
     public void listar(JTable tabla) {
-        //centrarCeldas(tabla);
+        centrarCeldas(tabla);
         modelo = (DefaultTableModel) tabla.getModel();
         tabla.setModel(modelo);
         List<Producto> lista = pf.listar();
@@ -187,7 +189,7 @@ public class Controlador implements ActionListener {
             modelo.addRow(objeto);
         }
         tabla.setRowHeight(35);
-        tabla.setRowMargin(10);
+        tabla.setRowMargin(20);
 
     }
 

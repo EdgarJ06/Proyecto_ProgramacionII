@@ -86,7 +86,7 @@ public class ProductoFunciones {
         }  
         return r;
     }
-    public int Delete(int id){
+    public int Eliminar(int id){
         int r=0;
         String sql="delete from producto where IdProducto="+id;
         try {
